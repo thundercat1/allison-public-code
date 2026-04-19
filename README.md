@@ -2,7 +2,7 @@
 
 Prototypes and projects built with Claude Code.
 
-Live site: [thundercat1.github.io/allison-development-environment](https://thundercat1.github.io/allison-development-environment/)
+Live site: [thundercat1.github.io/allison-public-code](https://thundercat1.github.io/allison-public-code/)
 
 ---
 
