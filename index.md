@@ -1,7 +1,12 @@
 ---
 layout: home
+title: Allison's Development Environment
 ---
 
-## Projects
+## Table of Contents
 
-- [Supply Chain Marketplace](supply_chain_marketplace/) — interactive demo built with HTML + JS
+### Demos & Apps
+- [Supply Chain Marketplace](supply_chain_marketplace/) — interactive supplier/product/order demo
+
+### Recipes
+- [Classic Green Smoothie](recipes/green-smoothie) — mise en place layout

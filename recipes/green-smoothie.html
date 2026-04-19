@@ -1,0 +1,169 @@
+---
+layout: default
+title: Classic Green Smoothie — Mise en Place
+---
+
+<style>
+.mise-wrap { padding: 1rem 0; }
+.zone { background: var(--color-background-primary, #fff); border: 0.5px solid #dde2ec; border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 12px; }
+.zone-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.zone-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.zone-title { font-size: 14px; font-weight: 500; color: #1a1a2e; }
+.zone-sub { font-size: 12px; color: #888; margin-left: auto; }
+.item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
+.item { background: #f8f9fc; border-radius: 7px; padding: 8px 10px; }
+.item-name { font-size: 13px; font-weight: 500; color: #1a1a2e; margin: 0 0 2px; }
+.item-detail { font-size: 12px; color: #555; margin: 0; }
+.item-note { font-size: 11px; color: #999; margin: 3px 0 0; font-style: italic; }
+.step-box { background: #f8f9fc; border-radius: 7px; padding: 10px 12px; margin-top: 8px; display: flex; gap: 10px; align-items: flex-start; }
+.step-num { font-size: 12px; font-weight: 500; color: #aaa; min-width: 16px; }
+.step-text { font-size: 13px; color: #1a1a2e; line-height: 1.5; }
+.tools-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.tool-pill { font-size: 12px; color: #555; background: #f8f9fc; border: 0.5px solid #dde2ec; border-radius: 20px; padding: 4px 12px; }
+.seq { display: flex; align-items: center; gap: 6px; font-size: 12px; padding: 10px 0 2px; flex-wrap: wrap; }
+.seq-label { font-size: 11px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px; }
+.seq-step { background: #f8f9fc; border-radius: 7px; padding: 3px 10px; font-size: 12px; color: #1a1a2e; }
+.seq-arrow { color: #ccc; }
+</style>
+
+<h1>Classic Green Smoothie</h1>
+<p style="color:#666; font-size:0.9rem; margin-bottom:1.5rem;">Mise en place layout — set up everything before you blend.</p>
+
+<div class="mise-wrap">
+
+  <!-- Zone 1: Freeze ahead -->
+  <div class="zone">
+    <div class="zone-header">
+      <div class="zone-dot" style="background:#1D9E75;"></div>
+      <span class="zone-title">Zone 1 — Freeze Ahead</span>
+      <span class="zone-sub">Do the night before (or use store-bought frozen)</span>
+    </div>
+    <div class="item-grid">
+      <div class="item">
+        <p class="item-name">1 medium banana</p>
+        <p class="item-detail">Peeled, sliced into coins, frozen solid</p>
+        <p class="item-note">Frozen banana is what makes the smoothie thick and creamy without ice dilution</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Zone 2: Liquid base -->
+  <div class="zone">
+    <div class="zone-header">
+      <div class="zone-dot" style="background:#BA7517;"></div>
+      <span class="zone-title">Zone 2 — Liquid Base</span>
+      <span class="zone-sub">Goes in the blender first</span>
+    </div>
+    <div class="item-grid">
+      <div class="item">
+        <p class="item-name">1 cup almond milk</p>
+        <p class="item-detail">Measured, at room temp</p>
+      </div>
+      <div class="item">
+        <p class="item-name">½ tbsp lemon juice</p>
+        <p class="item-detail">Freshly squeezed or bottled</p>
+        <p class="item-note">Brightens the green flavor, prevents browning</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Zone 3: Blender bowl (fresh produce) -->
+  <div class="zone">
+    <div class="zone-header">
+      <div class="zone-dot" style="background:#D85A30;"></div>
+      <span class="zone-title">Zone 3 — Blender Bowl</span>
+      <span class="zone-sub">Chop bowl — all going into the blender together</span>
+    </div>
+    <div class="item-grid">
+      <div class="item">
+        <p class="item-name">2 cups baby spinach</p>
+        <p class="item-detail">Packed, stems included</p>
+      </div>
+      <div class="item">
+        <p class="item-name">½ green apple</p>
+        <p class="item-detail">Cored, rough-chopped</p>
+      </div>
+      <div class="item">
+        <p class="item-name">½ inch fresh ginger</p>
+        <p class="item-detail">Peeled, roughly sliced</p>
+      </div>
+    </div>
+    <div class="step-box">
+      <span class="step-num">1</span>
+      <span class="step-text">Pull all three to your station. Core and rough-chop the apple, peel and slice the ginger, drop each into a bowl as you go. Knife stays in hand the whole time.</span>
+    </div>
+    <div class="step-box">
+      <span class="step-num">2</span>
+      <span class="step-text">Add spinach last — no knife needed, just pack it on top.</span>
+    </div>
+  </div>
+
+  <!-- Zone 4: Toppings -->
+  <div class="zone">
+    <div class="zone-header">
+      <div class="zone-dot" style="background:#534AB7;"></div>
+      <span class="zone-title">Zone 4 — Toppings</span>
+      <span class="zone-sub">Add at serving — texture-sensitive</span>
+    </div>
+    <div class="item-grid">
+      <div class="item">
+        <p class="item-name">2 tbsp granola</p>
+        <p class="item-detail">Ready to sprinkle</p>
+        <p class="item-note">Added last so it stays crunchy — dissolves fast once blended in</p>
+      </div>
+      <div class="item">
+        <p class="item-name">1 tsp chia seeds</p>
+        <p class="item-detail">As-is</p>
+        <p class="item-note">On top for visual texture; absorbs liquid quickly so serve immediately</p>
+      </div>
+      <div class="item">
+        <p class="item-name">3 fresh banana slices</p>
+        <p class="item-detail">Cut just before serving</p>
+        <p class="item-note">Cut last to prevent browning</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Zone 5: Tools -->
+  <div class="zone">
+    <div class="zone-header">
+      <div class="zone-dot" style="background:#888780;"></div>
+      <span class="zone-title">Zone 5 — Tools</span>
+    </div>
+    <div class="tools-row">
+      <span class="tool-pill">High-speed blender</span>
+      <span class="tool-pill">Measuring cup (1 cup)</span>
+      <span class="tool-pill">Tablespoon measure</span>
+      <span class="tool-pill">Cutting board</span>
+      <span class="tool-pill">Chef's knife</span>
+      <span class="tool-pill">Peeler (for ginger)</span>
+      <span class="tool-pill">Tall glass or jar</span>
+    </div>
+  </div>
+
+  <!-- Assembly order -->
+  <div class="seq">
+    <span class="seq-label">Assembly order</span>
+    <span class="seq-step">Add liquids to blender</span>
+    <span class="seq-arrow">→</span>
+    <span class="seq-step">Add blender bowl produce</span>
+    <span class="seq-arrow">→</span>
+    <span class="seq-step">Add frozen banana last</span>
+    <span class="seq-arrow">→</span>
+    <span class="seq-step">Blend 45–60s until smooth</span>
+    <span class="seq-arrow">→</span>
+    <span class="seq-step">Pour into glass</span>
+    <span class="seq-arrow">→</span>
+    <span class="seq-step">Add toppings &amp; serve immediately</span>
+  </div>
+
+</div>
+
+<p style="margin-top:1.5rem; font-size:0.85rem; color:#888;">
+  Frozen banana goes in last so it doesn't jam the blades before the liquid loosens things up.
+  Liquids first is the standard blender order — it protects the motor and ensures a vortex forms
+  immediately. Toppings are staged separately because granola turns to mush in under 60 seconds
+  once it contacts the smoothie.
+</p>
+
+<p style="margin-top:1rem;"><a href="{{ '/' | relative_url }}">&larr; Back to contents</a></p>
