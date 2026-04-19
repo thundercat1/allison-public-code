@@ -31,8 +31,10 @@ The repo publishes to `https://thundercat1.github.io/allison-development-environ
 
 ### What Jekyll publishes vs. skips
 - `.html` and `.md` files are published (Jekyll passes raw HTML through untouched)
-- Anything in the `exclude:` list in `_config.yml` is not published
+- Anything in the `exclude:` list in `_config.yml` is not published to the site
 - `hello_world/` and Python packaging files (`*.toml`, `*.lock`) are already excluded
+
+> **IMPORTANT: `_config.yml` is NOT a privacy control.** The repo is public. Everything pushed to it is visible to anyone on GitHub — `_config.yml` only controls what appears on the website. If something is sensitive (API keys, personal data, private work), it must never be committed to this repo at all. Use `.gitignore` to prevent accidental commits, and confirm with the user before pushing anything that could contain sensitive content.
 
 ## Static vs. interactive
 
