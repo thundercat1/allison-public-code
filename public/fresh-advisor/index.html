@@ -3,130 +3,676 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fresh Advisor</title>
+  <title>Fresh Advisor — AI-powered produce intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #07101f;
+      --surface:  #0d1b30;
+      --surface-2:#132038;
+      --border:   rgba(255,255,255,0.07);
+      --border-hi:rgba(255,255,255,0.14);
+      --green:    #2de87e;
+      --green-dim:rgba(45,232,126,0.10);
+      --red:      #ff4f5e;
+      --red-dim:  rgba(255,79,94,0.10);
+      --amber:    #ffb547;
+      --blue:     #5ab4ff;
+      --text:     #e4eeff;
+      --text-2:   #7b93b8;
+      --text-3:   #4a6080;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 56px;
+      background: rgba(7,16,31,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .nav-logo-leaf { font-size: 18px; }
+    .nav-logo-text { font-size: 15px; font-weight: 400; color: var(--text-2); }
+    .nav-logo-text strong { color: var(--green); font-weight: 700; }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 18px;
+      background: var(--green);
+      color: #07101f;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative signal chips in the background */
+    .hero-signals {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .signal-chip {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border-hi);
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-2);
+      white-space: nowrap;
+      opacity: 0;
+      animation: floatIn 0.6s ease forwards;
+    }
+
+    .signal-chip-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .signal-chip:nth-child(1) { top: 18%; left: 6%;  animation-delay: 0.8s; }
+    .signal-chip:nth-child(2) { top: 28%; right: 5%; animation-delay: 1.0s; }
+    .signal-chip:nth-child(3) { top: 62%; left: 4%;  animation-delay: 1.2s; }
+    .signal-chip:nth-child(4) { top: 70%; right: 6%; animation-delay: 1.4s; }
+    .signal-chip:nth-child(5) { top: 12%; right: 18%;animation-delay: 1.6s; }
+    .signal-chip:nth-child(6) { top: 80%; left: 18%; animation-delay: 1.8s; }
+
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 0.55; transform: translateY(0); }
+    }
+
+    /* Radial glow behind hero text */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 30%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px; height: 400px;
+      background: radial-gradient(ellipse, rgba(45,232,126,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 14px;
+      background: var(--green-dim);
+      border: 1px solid rgba(45,232,126,0.20);
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .hero-h1 {
+      font-size: clamp(36px, 5.5vw, 62px);
+      font-weight: 800;
+      line-height: 1.10;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      max-width: 820px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .hero-h1 em {
+      font-style: normal;
+      color: var(--green);
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 19px);
+      font-weight: 400;
+      color: var(--text-2);
+      max-width: 580px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      background: var(--green);
+      color: #07101f;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 8px;
+      text-decoration: none;
+      position: relative;
+      transition: opacity 0.15s, transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 0 32px rgba(45,232,126,0.20);
+    }
+    .hero-cta:hover {
+      opacity: 0.90;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 40px rgba(45,232,126,0.30);
+    }
+
+    .hero-cta-arrow { font-size: 17px; transition: transform 0.15s; }
+    .hero-cta:hover .hero-cta-arrow { transform: translateX(3px); }
+
+    .hero-footnote {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--text-3);
+      position: relative;
+    }
+
+    /* ── SECTION SHARED ── */
+    section {
+      padding: 100px 40px;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      color: var(--green);
+      margin-bottom: 14px;
+    }
+
+    .section-h2 {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: var(--text);
+      max-width: 640px;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      font-size: 17px;
+      color: var(--text-2);
+      max-width: 560px;
+      line-height: 1.6;
+      margin-bottom: 56px;
+    }
+
+    /* ── PROBLEM / SOLUTION CARDS ── */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 800px) {
+      .problem-grid { grid-template-columns: 1fr; }
+    }
+
+    .problem-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .problem-card:hover { border-color: var(--border-hi); transform: translateY(-2px); }
+
+    .problem-half {
+      padding: 22px 24px;
+    }
+
+    .problem-half--without {
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,79,94,0.03);
+    }
+
+    .problem-half--with {
+      background: rgba(45,232,126,0.03);
+    }
+
+    .problem-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    .problem-label--without { color: var(--red); }
+    .problem-label--with    { color: var(--green); }
+
+    .problem-label-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .problem-label--without .problem-label-dot { background: var(--red); }
+    .problem-label--with    .problem-label-dot { background: var(--green); }
+
+    .problem-text {
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .problem-half--without .problem-text { color: var(--text-2); }
+    .problem-half--with    .problem-text { color: var(--text); }
+
+    .problem-card-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+
+    /* ── WHAT IT IS ── */
+    .what-section {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 100px 40px;
+    }
+
+    .what-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    @media (max-width: 800px) {
+      .what-inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    .what-stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .what-stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .what-stat-val {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 4px;
+    }
+
+    .what-stat-val--green { color: var(--green); }
+    .what-stat-val--amber { color: var(--amber); }
+    .what-stat-val--blue  { color: var(--blue); }
+    .what-stat-val--red   { color: var(--red); }
+
+    .what-stat-label {
+      font-size: 11px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 500;
+    }
+
+    /* ── WHO IT'S FOR ── */
+    .who-section { padding: 100px 40px; }
+    .who-inner { max-width: 1160px; margin: 0 auto; }
+
+    .who-quote {
+      font-size: clamp(20px, 2.8vw, 32px);
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--text-2);
+      letter-spacing: -0.01em;
+      max-width: 820px;
+      margin-bottom: 40px;
+      border-left: 3px solid var(--green);
+      padding-left: 28px;
+    }
+
+    .who-quote strong { color: var(--text); }
+
+    .who-details {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .who-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .who-detail-val {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .who-detail-label {
+      font-size: 12px;
+      color: var(--text-3);
+    }
+
+    /* ── FINAL CTA ── */
+    .cta-section {
+      padding: 100px 40px 120px;
+      text-align: center;
+    }
+
+    .cta-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .cta-h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .cta-sub {
+      font-size: 17px;
+      color: var(--text-2);
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo { font-size: 13px; color: var(--text-3); }
+    .footer-logo strong { color: var(--green); }
+    .footer-note { font-size: 12px; color: var(--text-3); }
+
+    /* ── CAPABILITY CARDS ── */
+    .cap-grid { grid-template-columns: repeat(3,1fr); }
+    @media (max-width: 700px) { .cap-grid { grid-template-columns: 1fr !important; } }
+
+    .cap-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .cap-card:hover { border-color: var(--border-hi); transform: translateY(-2px); }
+
+    .cap-icon { display: flex; }
+
+    .cap-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .cap-body {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+
+    /* ── FADE-UP ANIMATION ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="header-left">
-      <div class="logo">
-        <span class="logo-leaf">🌿</span>
-        <span class="logo-text">Fresh<strong>Advisor</strong></span>
-      </div>
-      <nav class="dept-switcher" id="deptSwitcher"></nav>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <span class="nav-logo-leaf">🌿</span>
+    <span class="nav-logo-text">Fresh<strong>Advisor</strong></span>
+  </a>
+  <a class="nav-cta" href="dashboard.html">See the demo →</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+
+  <!-- Decorative background signal chips -->
+  <div class="hero-signals">
+    <div class="signal-chip">
+      <div class="signal-chip-dot" style="background:#ff4f5e"></div>
+      🌡️ Heat event · Watsonville, CA
     </div>
-    <div class="header-right">
-      <span class="retailer-name" id="retailerName"></span>
-      <div class="header-user" id="headerUser"></div>
-      <div class="header-date" id="headerDate"></div>
+    <div class="signal-chip">
+      <div class="signal-chip-dot" style="background:#ff4f5e"></div>
+      Waste: 9.2% vs 7.0% target
     </div>
-  </header>
-
-  <main class="main">
-
-    <!-- WASTE HERO -->
-    <section class="waste-hero">
-      <div class="waste-hero-primary">
-        <div class="waste-main-stat">
-          <div class="waste-number-wrap">
-            <span class="waste-number" id="wasteNumber">0.0</span>
-            <span class="waste-unit">%</span>
-          </div>
-          <div class="waste-label">Produce Waste Rate</div>
-          <div class="waste-target-row">
-            <span class="waste-vs">vs</span>
-            <span class="waste-target-val" id="wasteTarget"></span>
-            <span class="waste-vs">target</span>
-            <span class="waste-status-pill" id="wasteStatusPill"></span>
-          </div>
-        </div>
-        <div class="waste-divider"></div>
-        <div class="waste-secondary-stats" id="secondaryStats"></div>
-      </div>
-      <div class="waste-hero-sub" id="recoTeaser"></div>
-    </section>
-
-    <!-- ALERTS STRIP -->
-    <div class="alerts-section">
-      <div class="alerts-label">Active signals</div>
-      <div class="alerts-strip" id="alertsStrip"></div>
+    <div class="signal-chip">
+      <div class="signal-chip-dot" style="background:#ffb547"></div>
+      Store #7 · Action needed
     </div>
+    <div class="signal-chip">
+      <div class="signal-chip-dot" style="background:#5ab4ff"></div>
+      USDA: +15% blueberry oversupply
+    </div>
+    <div class="signal-chip">
+      <div class="signal-chip-dot" style="background:#2de87e"></div>
+      Cinco de Mayo demand +28% in 5 days
+    </div>
+    <div class="signal-chip">
+      <div class="signal-chip-dot" style="background:#ffb547"></div>
+      Blueberry spot: $1.84 vs $2.09 contract
+    </div>
+  </div>
 
-    <!-- AI RECOMMENDATIONS -->
-    <section class="section recommendations-section">
-      <div class="section-header">
-        <h2 class="section-title">
-          <span class="section-icon">✦</span>
-          AI Recommendations
-        </h2>
-        <span class="section-subtitle" id="recoSubtitle"></span>
+  <div class="hero-eyebrow">
+    <span>✦</span> AI-powered produce intelligence
+  </div>
+
+  <h1 class="hero-h1">
+    Your planning tool sees your inventory.<br>
+    It has no idea what's happening<br>
+    <em>in Watsonville right now.</em>
+  </h1>
+
+  <p class="hero-sub">
+    Fresh Advisor layers real-time market signals — weather events, USDA data, commodity prices — on top of your existing systems and turns them into a daily action list for your produce team.
+  </p>
+
+  <a class="hero-cta" href="dashboard.html">
+    See the demo
+    <span class="hero-cta-arrow">→</span>
+  </a>
+
+  <p class="hero-footnote">Interactive demo · Produce department · Pacific Fresh Markets</p>
+
+</div>
+
+<!-- CAPABILITIES -->
+<section style="padding: 80px 40px;">
+  <div class="section-label">How it works</div>
+  <h2 class="section-h2 fade-up">Three things your planning software doesn't do.</h2>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;" class="cap-grid">
+
+    <div class="cap-card fade-up">
+      <div class="cap-icon" style="color:var(--blue)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h18M12 3l7 9-7 9-7-9 7-9z"/></svg>
       </div>
-      <div class="recommendations-grid" id="recommendationsGrid"></div>
-    </section>
-
-    <!-- MAIN CONTENT GRID -->
-    <div class="content-grid">
-
-      <!-- LEFT: SUPPLY CHAIN -->
-      <div class="content-left">
-
-        <section class="section">
-          <div class="section-header">
-            <h2 class="section-title">Incoming Shipments</h2>
-            <span class="section-subtitle">This week</span>
-          </div>
-          <div class="shipments-list" id="shipmentsList"></div>
-        </section>
-
-        <section class="section">
-          <div class="section-header">
-            <h2 class="section-title">Supplier Health</h2>
-          </div>
-          <div class="suppliers-list" id="suppliersList"></div>
-        </section>
-
-      </div>
-
-      <!-- RIGHT: INVENTORY -->
-      <div class="content-right">
-
-        <section class="section">
-          <div class="section-header">
-            <h2 class="section-title">Days of Supply</h2>
-            <span class="section-subtitle">By SKU vs shelf life</span>
-          </div>
-          <div class="inventory-table" id="inventoryTable"></div>
-        </section>
-
-      </div>
+      <div class="cap-title">Reads your planning data</div>
+      <div class="cap-body">Connects to your existing system — inventory, velocity, incoming orders — and uses it as one of the signals it's watching.</div>
     </div>
 
-    <!-- MARKET LANDSCAPE -->
-    <section class="section">
-      <div class="section-header">
-        <h2 class="section-title">Market Landscape</h2>
-        <span class="section-subtitle">External signals affecting your category</span>
+    <div class="cap-card fade-up">
+      <div class="cap-icon" style="color:var(--amber)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
       </div>
-      <div class="market-grid" id="marketGrid"></div>
-    </section>
+      <div class="cap-title">Layers in market signals</div>
+      <div class="cap-body">Weather events, USDA crop reports, commodity prices, seasonal demand patterns — surfaced in real time, the moment they affect your category.</div>
+    </div>
 
-    <!-- STORE PERFORMANCE -->
-    <section class="section">
-      <div class="section-header">
-        <h2 class="section-title">Waste by Store</h2>
-        <span class="section-subtitle">vs 7.0% target</span>
+    <div class="cap-card fade-up">
+      <div class="cap-icon" style="color:var(--green)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
       </div>
-      <div class="stores-grid" id="storesGrid"></div>
-    </section>
+      <div class="cap-title">Generates a daily action list</div>
+      <div class="cap-body">Not a report, not an alert. A prioritized list of specific decisions — with the reasoning shown — tied directly to your waste target.</div>
+    </div>
 
-  </main>
+  </div>
+</section>
 
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+<!-- WATSONVILLE TEASER -->
+<div style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:linear-gradient(135deg,rgba(255,79,94,0.04) 0%,transparent 60%);">
+  <div style="max-width:1160px;margin:0 auto;padding:60px 40px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;">
+    <div style="max-width:620px;">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:var(--red);margin-bottom:12px;">🌡️ See it in action</div>
+      <div style="font-size:clamp(20px,2.5vw,28px);font-weight:700;color:var(--text);line-height:1.3;letter-spacing:-0.02em;" class="fade-up">
+        A heat event in Watsonville. A shipment arriving tomorrow.<br>See how Fresh Advisor connects them.
+      </div>
+    </div>
+    <a class="hero-cta fade-up" href="dashboard.html" style="flex-shrink:0;">
+      See the demo
+      <span class="hero-cta-arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<!-- WHO IT'S FOR -->
+<div class="who-section">
+  <div class="who-inner">
+    <div class="section-label">Who it's for</div>
+    <blockquote class="who-quote fade-up">
+      "I make forty ordering decisions a day. My planning tool tells me what I have. <strong>Nobody tells me what's about to go wrong.</strong>"
+    </blockquote>
+    <div class="who-details">
+      <div class="who-detail">
+        <div class="who-detail-val">Produce Buyer</div>
+        <div class="who-detail-label">Primary user</div>
+      </div>
+      <div class="who-detail">
+        <div class="who-detail-val">Regional & national grocery chains</div>
+        <div class="who-detail-label">Target organizations</div>
+      </div>
+      <div class="who-detail">
+        <div class="who-detail-val">Produce first</div>
+        <div class="who-detail-label">Meat, seafood, deli, dairy, bakery to follow</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <h2 class="cta-h2 fade-up">See what your buyers<br>could have every morning.</h2>
+    <p class="cta-sub fade-up">An interactive demo built around a real produce buyer's day — real signals, real recommendations, real waste numbers.</p>
+    <a class="hero-cta fade-up" href="dashboard.html">
+      See the demo
+      <span class="hero-cta-arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🌿 Fresh<strong>Advisor</strong></div>
+  <div class="footer-note">Demo · Produce department · Pacific Fresh Markets</div>
+</footer>
+
+<script>
+  // Scroll-triggered fade-ups
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
 </body>
 </html>
