@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fresh Advisor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=4">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <a class="logo" href="index.html">
+        <span class="logo-leaf">🌿</span>
+        <span class="logo-text">Fresh<strong>Advisor</strong></span>
+      </a>
+      <nav class="dept-switcher" id="deptSwitcher"></nav>
+    </div>
+    <div class="header-right">
+      <span class="retailer-name" id="retailerName"></span>
+      <div class="header-user" id="headerUser"></div>
+      <div class="header-date" id="headerDate"></div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- WASTE HERO -->
+    <section class="waste-hero">
+      <div class="waste-hero-primary">
+        <div class="waste-main-stat">
+          <div class="waste-number-wrap">
+            <span class="waste-number" id="wasteNumber">0.0</span>
+            <span class="waste-unit">%</span>
+          </div>
+          <div class="waste-label">Produce Waste Rate</div>
+          <div class="waste-target-row">
+            <span class="waste-vs">vs</span>
+            <span class="waste-target-val" id="wasteTarget"></span>
+            <span class="waste-vs">target</span>
+            <span class="waste-status-pill" id="wasteStatusPill"></span>
+          </div>
+        </div>
+        <div class="waste-divider"></div>
+        <div class="waste-secondary-stats" id="secondaryStats"></div>
+      </div>
+      <div class="waste-hero-sub" id="recoTeaser"></div>
+    </section>
+
+    <!-- ALERTS STRIP -->
+    <div class="alerts-section">
+      <div class="alerts-label">Active signals</div>
+      <div class="alerts-strip" id="alertsStrip"></div>
+    </div>
+
+    <!-- MARKET SIGNALS (elevated — our differentiator) -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Market Signals</h2>
+        <span class="section-subtitle">External data Fresh Advisor is reading right now</span>
+      </div>
+      <div class="market-grid" id="marketGrid"></div>
+    </section>
+
+    <!-- AI RECOMMENDATIONS -->
+    <section class="section recommendations-section">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="section-icon">✦</span>
+          AI Recommendations
+        </h2>
+        <span class="section-subtitle" id="recoSubtitle"></span>
+      </div>
+      <div id="featuredReco"></div>
+      <div class="recommendations-grid" id="recommendationsGrid"></div>
+    </section>
+
+    <!-- PLANNING DATA (consolidated infographic) -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Planning Data</h2>
+        <span class="section-subtitle planning-sync-label" id="planningSyncLabel"></span>
+        <a class="planning-link" id="planningLink" href="#">Open in Blue Yonder →</a>
+      </div>
+      <div id="planningWidget"></div>
+    </section>
+
+    <!-- WASTE BY STORE -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Waste by Store</h2>
+        <span class="section-subtitle">vs 7.0% target</span>
+      </div>
+      <div class="stores-grid" id="storesGrid"></div>
+    </section>
+
+  </main>
+
+  <script src="data.js?v=4"></script>
+  <script src="app.js?v=4"></script>
+</body>
+</html>
